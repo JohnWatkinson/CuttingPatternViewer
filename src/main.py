@@ -1,4 +1,5 @@
 import sys
+import numpy as np
 
 import fitz  # PyMuPDF
 from PyQt5.QtCore import QPoint, QSettings, Qt
@@ -135,6 +136,19 @@ class PDFReader(QMainWindow):
         self.rotation = 0
         self.is_fullscreen = False
         self.is_inverted = False  # Track inversion state
+        
+        # Color cycling
+        self.colors = [
+            (0, 0, 0),       # Black (default)
+            (255, 0, 0),     # Red
+            (0, 255, 0),     # Green
+            (0, 0, 255),     # Blue
+            (255, 255, 255), # White
+            (255, 255, 0),   # Yellow
+            (0, 255, 255),   # Cyan
+            (255, 0, 255),   # Magenta
+        ]
+        self.current_color_index = 0
 
         # Connect buttons
         open_pdf_btn.clicked.connect(self.open_pdf)
@@ -177,6 +191,10 @@ class PDFReader(QMainWindow):
         self.shortcut_invert = QShortcut(QKeySequence("Ctrl+I"), self)
         self.shortcut_invert.activated.connect(self.toggle_invert)
 
+        # Setup keyboard shortcut for color cycling
+        self.shortcut_color = QShortcut(QKeySequence("Ctrl+C"), self)
+        self.shortcut_color.activated.connect(self.cycle_color)
+
     def open_pdf(self):
         file_name, _ = QFileDialog.getOpenFileName(
             self, "Open PDF", "", "PDF Files (*.pdf)"
@@ -187,7 +205,7 @@ class PDFReader(QMainWindow):
             self.display_page()
 
     def display_page(self):
-        if not self.current_page:
+        if self.current_doc is None or self.current_page is None:
             return
 
         # Store the current scroll position and viewport size for both views
@@ -222,6 +240,9 @@ class PDFReader(QMainWindow):
         img = QImage(
             pix.samples, pix.width, pix.height, pix.stride, QImage.Format_RGB888
         )
+
+        if self.current_color_index > 0:  # Skip for black (index 0)
+            img = self.apply_color_to_image(img)
 
         if self.is_inverted:
             img.invertPixels()  # Invert the colors
@@ -364,6 +385,34 @@ class PDFReader(QMainWindow):
         """Toggle between normal and inverted colors"""
         self.is_inverted = not self.is_inverted
         self.display_page()
+
+    def cycle_color(self):
+        """Cycle through the available colors"""
+        self.current_color_index = (self.current_color_index + 1) % len(self.colors)
+        self.display_page()
+
+    def apply_color_to_image(self, img):
+        """Apply the current color to non-white pixels in the image"""
+        # Convert QImage to a format we can manipulate
+        img = img.convertToFormat(QImage.Format_ARGB32)
+        
+        # Get current color
+        r, g, b = self.colors[self.current_color_index]
+        
+        # Create buffer for direct pixel manipulation
+        ptr = img.bits()
+        ptr.setsize(img.byteCount())
+        arr = np.frombuffer(ptr, np.uint8).reshape((img.height(), img.width(), 4))
+        
+        # Create mask for non-white pixels (assuming white is 255,255,255)
+        mask = ~((arr[:,:,0] == 255) & (arr[:,:,1] == 255) & (arr[:,:,2] == 255))
+        
+        # Apply color to non-white pixels
+        arr[mask, 0] = b  # OpenCV uses BGR format
+        arr[mask, 1] = g
+        arr[mask, 2] = r
+        
+        return img
 
 
 def main():

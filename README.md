@@ -6,6 +6,7 @@
 - Zoom in and out with precission
 - Rotate 90, 180, or 270 degrees, clockwise or anti-clockwise
 - Invert the colours, black text, white background to white text and black background
+- Cycle through the available colors: black, red, green, blue, white, yellow, cyan, magenta.
 - Cross-platform compatibility
 
 ## Prerequisites
@@ -64,9 +65,8 @@ Ctrl + R for rotate 90 degrees clockwise
 Ctrl + Shift + R for rotate 90 degrees anti-clockwise
 Ctrl + Z to enter a zoom value. 1.65 worked well...
 Ctrl + I inverts the colours, black text, white background to white text and black background
+Ctrl + C cycles through the available colors: black, red, green, blue, white, yellow, cyan, magenta.
 
 To compress pdfs: https://www.adobe.com/acrobat/online/compress-pdf.html - crap though..
 
 TODO:
-Change the colour of the lines, ctrl+c - toggles through a list of colours
-Black, white, red, green, blue, yellow, cyan, magenta
