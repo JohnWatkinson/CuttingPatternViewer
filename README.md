@@ -46,10 +46,7 @@ python main.py
 
 - PyQt5: GUI Framework
 - PyMuPDF: PDF Rendering
-
-https://codeium.com/windsurf
-https://docs.codeium.com/getstarted/overview
-https://docs.codeium.com/windsurf/getting-started
+- Numpy: Image Processing
 
 Summary
 App needs to be a pdf viewer for viewing cutting patterns which are projected onto fabrics. App should be cross-platform and ideally in python.
