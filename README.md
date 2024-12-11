@@ -48,11 +48,15 @@ python main.py
 - PyMuPDF: PDF Rendering
 - Numpy: Image Processing
 
-Summary
+## Summary
+
 App needs to be a pdf viewer for viewing cutting patterns which are projected onto fabrics. App should be cross-platform and ideally in python.
 
-To Use
-Pdf viewer, reads the pdf calibration file, set up the zoom. Then reads the pattern file, which will have the same zoom factor.
+## To Use
+
+- Read a calibration pdf file and set the zoom level.
+- Read a pattern file and display the pattern.
+- Adjust the colours, zoom and rotation and use full screen.
 
 Keyboard Shortcuts
 CTRL + F for full screen mode
