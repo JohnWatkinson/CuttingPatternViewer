@@ -92,8 +92,7 @@ class PDFReader(QMainWindow):
 
         # Add rotation buttons
         rotate_90_btn = QPushButton("Rotate 90° (Ctrl+R)")
-        rotate_180_btn = QPushButton("Rotate 180° (Ctrl+Shift+R)")
-        rotate_270_btn = QPushButton("Rotate 270°")
+        rotate_neg_90_btn = QPushButton("Rotate -90° (Ctrl+Shift+R)")
 
         # Add full screen button
         fullscreen_btn = QPushButton("Full Screen (Ctrl+F)")
@@ -102,8 +101,7 @@ class PDFReader(QMainWindow):
         zoom_layout.addWidget(zoom_in_btn)
         zoom_layout.addWidget(zoom_out_btn)
         zoom_layout.addWidget(rotate_90_btn)
-        zoom_layout.addWidget(rotate_180_btn)
-        zoom_layout.addWidget(rotate_270_btn)
+        zoom_layout.addWidget(rotate_neg_90_btn)
         zoom_layout.addWidget(fullscreen_btn)
         self.normal_layout.addLayout(zoom_layout)
 
@@ -142,8 +140,7 @@ class PDFReader(QMainWindow):
         zoom_in_btn.clicked.connect(self.zoom_in)
         zoom_out_btn.clicked.connect(self.zoom_out)
         rotate_90_btn.clicked.connect(lambda: self.rotate_page(90))
-        rotate_180_btn.clicked.connect(lambda: self.rotate_page(180))
-        rotate_270_btn.clicked.connect(lambda: self.rotate_page(270))
+        rotate_neg_90_btn.clicked.connect(lambda: self.rotate_page(-90))
         fullscreen_btn.clicked.connect(self.toggle_fullscreen)
 
         # Setup keyboard shortcut for full screen
@@ -172,8 +169,8 @@ class PDFReader(QMainWindow):
         # Setup keyboard shortcuts for rotation
         self.shortcut_rotate_90 = QShortcut(QKeySequence("Ctrl+R"), self)
         self.shortcut_rotate_90.activated.connect(lambda: self.rotate_page(90))
-        self.shortcut_rotate_180 = QShortcut(QKeySequence("Ctrl+Shift+R"), self)
-        self.shortcut_rotate_180.activated.connect(lambda: self.rotate_page(180))
+        self.shortcut_rotate_neg_90 = QShortcut(QKeySequence("Ctrl+Shift+R"), self)
+        self.shortcut_rotate_neg_90.activated.connect(lambda: self.rotate_page(-90))
 
     def open_pdf(self):
         file_name, _ = QFileDialog.getOpenFileName(

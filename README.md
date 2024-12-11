@@ -52,18 +52,20 @@ https://docs.codeium.com/windsurf/getting-started
 Summary
 App needs to be a pdf viewer for viewing cutting patterns which are projected onto fabrics. App should be cross-platform and ideally in python.
 
-    Pdf viewer, reads the pdf calibration file, set up the zoom. Then reads the pattern file, which will have the same zoom factor.
+To Use
+Pdf viewer, reads the pdf calibration file, set up the zoom. Then reads the pattern file, which will have the same zoom factor.
 
 Keyboard Shortcuts
 CTRL + F for full screen mode
 Ctrl + + for zoom in
 Ctrl + - for zoom out
+Ctrl + R for rotate 90 degrees clockwise
+Ctrl + Shift + R for rotate 90 degrees anti-clockwise
 Ctrl + z to enter a zoom value. 1.65 worked well...
 
-To compress pdfs: https://www.adobe.com/acrobat/online/compress-pdf.html
+To compress pdfs: https://www.adobe.com/acrobat/online/compress-pdf.html - crap though..
 
 TODO:
 Invert the pdf, black text, white background to white text and black background, ctrl+i
-Rotate anti-clockwise, ctrl+r, ctrl+l
 Change the colour of the lines, ctrl+c - toggles through a list of colours
 Black, white, red, green, blue, yellow, cyan, magenta
