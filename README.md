@@ -1,4 +1,4 @@
-# Advanced Cross-Platform PDF Reader
+# Cross-Platform PDF Reader for Projection
 
 ## Features
 
