@@ -134,6 +134,7 @@ class PDFReader(QMainWindow):
         self.zoom_level = 1.0
         self.rotation = 0
         self.is_fullscreen = False
+        self.is_inverted = False  # Track inversion state
 
         # Connect buttons
         open_pdf_btn.clicked.connect(self.open_pdf)
@@ -171,6 +172,10 @@ class PDFReader(QMainWindow):
         self.shortcut_rotate_90.activated.connect(lambda: self.rotate_page(90))
         self.shortcut_rotate_neg_90 = QShortcut(QKeySequence("Ctrl+Shift+R"), self)
         self.shortcut_rotate_neg_90.activated.connect(lambda: self.rotate_page(-90))
+
+        # Setup keyboard shortcut for invert
+        self.shortcut_invert = QShortcut(QKeySequence("Ctrl+I"), self)
+        self.shortcut_invert.activated.connect(self.toggle_invert)
 
     def open_pdf(self):
         file_name, _ = QFileDialog.getOpenFileName(
@@ -217,6 +222,11 @@ class PDFReader(QMainWindow):
         img = QImage(
             pix.samples, pix.width, pix.height, pix.stride, QImage.Format_RGB888
         )
+
+        if self.is_inverted:
+            img.invertPixels()  # Invert the colors
+
+        # Convert to QPixmap and display
         pixmap = QPixmap.fromImage(img)
 
         # Display in both views
@@ -349,6 +359,11 @@ class PDFReader(QMainWindow):
             self.stacked_widget.setCurrentIndex(0)
             self.showNormal()
             self.is_fullscreen = False
+
+    def toggle_invert(self):
+        """Toggle between normal and inverted colors"""
+        self.is_inverted = not self.is_inverted
+        self.display_page()
 
 
 def main():
