@@ -52,6 +52,11 @@ python main.py
 
 App needs to be a pdf viewer for viewing cutting patterns which are projected onto fabrics. App should be cross-platform and ideally in python.
 
+## Developed
+
+System: Linux Mint 21.2
+Author: John Watkinson
+
 ## To Use
 
 - Read a calibration pdf file and set the zoom level.
